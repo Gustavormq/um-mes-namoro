@@ -6,28 +6,38 @@
   <title>1 Mês 🦋🐟</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Emojis de borboleta e peixe subindo ao fundo -->
+  <div class="floating-bg" id="floating-bg" aria-hidden="true"></div>
+
   <main class="container" id="main-card">
     <header class="header">
       <span class="small-date">1 mês juntos 🦋 🐟</span>
       <h1 class="title">Feliz um mês de namoro</h1>
     </header>
 
-    <!-- Mural de fotos estilo polaroid -->
-    <div class="photos-strip" id="photos-strip">
-      <figure class="polaroid p1">
-        <img src="foto1.jpg" alt="Nós dois" onerror="this.parentElement.classList.add('empty-photo')" />
+    <!-- Colagem interativa de Polaroids (toque para destacar/alternar) -->
+    <div class="polaroid-stage" id="polaroid-stage" title="Toque nas fotos para alternar">
+      <figure class="polaroid p1" data-index="0">
+        <span class="tape"></span>
+        <img src="foto1.jpg" alt="Nós dois no parque" />
+        <figcaption>nós dois 🦋</figcaption>
       </figure>
-      <figure class="polaroid p2">
-        <img src="foto2.jpg" alt="Nós dois" onerror="this.parentElement.classList.add('empty-photo')" />
+      <figure class="polaroid p2 active" data-index="1">
+        <span class="tape"></span>
+        <img src="foto2.jpg" alt="Nós dois de pertinho" />
+        <figcaption>meu lugar favorito 🐟</figcaption>
       </figure>
-      <figure class="polaroid p3">
-        <img src="foto3.jpg" alt="Nós dois" onerror="this.parentElement.classList.add('empty-photo')" />
+      <figure class="polaroid p3" data-index="2">
+        <span class="tape"></span>
+        <img src="foto3.jpg" alt="Nós dois à noite" />
+        <figcaption>cada momento 🐠</figcaption>
       </figure>
     </div>
+    <span class="photo-tip">toque nas fotos para ver de perto</span>
 
     <div class="question-section">
       <p class="question">Quer passar o resto dos seus dias comigo?</p>
@@ -41,25 +51,34 @@
   </main>
 
   <!-- Tela que aparece depois de apertar "Sim" 5 vezes -->
-  <section class="container hidden" id="celebration-card">
-    <span class="small-date">🦋 🐟 🐠</span>
-    <h1 class="title">Sabia que você ia dizer sim</h1>
+  <section class="container celebration-container hidden" id="celebration-card">
+    <header class="header">
+      <span class="small-date">1 mês de muitos 🦋 🐟 🐠</span>
+      <h1 class="title">Sabia que você ia dizer sim</h1>
+      <p class="final-text">
+        Mesmo tendo que caçar o botão 5 vezes pela tela. Feliz primeiro mês, meu amor.
+      </p>
+    </header>
 
-    <div class="photos-strip celebration-photos">
-      <figure class="polaroid p1">
-        <img src="foto1.jpg" alt="Nós dois" onerror="this.parentElement.classList.add('empty-photo')" />
+    <div class="scrapbook-grid">
+      <figure class="polaroid-large rot-left">
+        <span class="tape"></span>
+        <img src="foto1.jpg" alt="Nós dois no parque" />
+        <figcaption>debruçados no nosso mundinho 🦋</figcaption>
       </figure>
-      <figure class="polaroid p2">
-        <img src="foto2.jpg" alt="Nós dois" onerror="this.parentElement.classList.add('empty-photo')" />
+
+      <figure class="polaroid-large rot-right">
+        <span class="tape"></span>
+        <img src="foto2.jpg" alt="Nós dois de pertinho" />
+        <figcaption>meu sorriso mais fácil é com você 🐟</figcaption>
       </figure>
-      <figure class="polaroid p3">
-        <img src="foto3.jpg" alt="Nós dois" onerror="this.parentElement.classList.add('empty-photo')" />
+
+      <figure class="polaroid-large rot-left-2">
+        <span class="tape"></span>
+        <img src="foto3.jpg" alt="Nós dois à noite" />
+        <figcaption>a borboleta e o peixinho 🦋🐟</figcaption>
       </figure>
     </div>
-
-    <p class="final-text">
-      Mesmo tendo que apertar 5 vezes. Feliz primeiro mês, meu amor 🦋🐟
-    </p>
   </section>
 
   <script src="script.js"></script>

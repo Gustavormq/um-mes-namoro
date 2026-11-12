@@ -6,12 +6,12 @@
 }
 
 :root {
-  --bg: #f8f5f0;
-  --card-bg: #ffffff;
-  --text: #23201d;
-  --muted: #6e675f;
-  --border: #e5dfd5;
-  --accent: #2c3e35;
+  --bg: #f6f2ea;
+  --paper: #fffdf9;
+  --text: #221f1c;
+  --muted: #6e665e;
+  --border: #e3dcd1;
+  --tape: rgba(235, 224, 204, 0.72);
 }
 
 body {
@@ -20,22 +20,65 @@ body {
   overflow-x: hidden;
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg);
+  background-image: radial-gradient(#ded6c8 0.65px, transparent 0.65px);
+  background-size: 18px 18px;
   color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 24px 18px;
+  position: relative;
   user-select: none;
 }
 
+/* Borboletas e peixinhos subindo ao fundo */
+.floating-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-item {
+  position: absolute;
+  bottom: -40px;
+  font-size: 1.35rem;
+  opacity: 0;
+  animation: riseUp linear forwards;
+  filter: saturate(0.95);
+}
+
+@keyframes riseUp {
+  0% {
+    transform: translateY(0) translateX(0) rotate(-6deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(-55dvh) translateX(14px) rotate(8deg);
+  }
+  85% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-112dvh) translateX(-10px) rotate(-6deg);
+    opacity: 0;
+  }
+}
+
 .container {
+  position: relative;
+  z-index: 1;
   width: 100%;
-  max-width: 390px;
+  max-width: 400px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 22px;
+  gap: 16px;
 }
 
 .hidden {
@@ -45,78 +88,127 @@ body {
 .header {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
+  align-items: center;
 }
 
 .small-date {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   color: var(--muted);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
 .title {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 2.1rem;
+  font-size: 2.15rem;
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 1.12;
   color: var(--text);
 }
 
-/* Mural de Polaroids */
-.photos-strip {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+/* Palco de Polaroids interativas na tela inicial */
+.polaroid-stage {
+  position: relative;
   width: 100%;
-  padding: 8px 0;
+  height: 235px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+  cursor: pointer;
 }
 
 .polaroid {
-  background: var(--card-bg);
-  padding: 6px 6px 18px 6px;
+  position: absolute;
+  background: var(--paper);
+  padding: 7px 7px 26px 7px;
   border: 1px solid var(--border);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  width: 112px;
-  flex-shrink: 0;
-  transition: transform 0.25s ease;
+  box-shadow: 0 10px 24px rgba(34, 31, 28, 0.1);
+  width: 148px;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.38s ease,
+              z-index 0s;
 }
 
 .polaroid img {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 162px;
   object-fit: cover;
   display: block;
-  background: #ece7df;
 }
 
-.polaroid.empty-photo {
-  display: none;
+.polaroid figcaption,
+.polaroid-large figcaption {
+  font-family: 'Caveat', cursive;
+  font-size: 1.12rem;
+  color: #3a342e;
+  margin-top: 6px;
+  line-height: 1;
 }
 
-.p1 { transform: rotate(-4deg); }
-.p2 { transform: translateY(-4px) rotate(1.5deg); z-index: 2; }
-.p3 { transform: rotate(4.5deg); }
+/* Fita adesiva (washi tape) no topo da polaroid */
+.tape {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 54px;
+  height: 17px;
+  background: var(--tape);
+  border-left: 1px dashed rgba(180, 165, 140, 0.45);
+  border-right: 1px dashed rgba(180, 165, 140, 0.45);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Posições em leque das 3 fotos */
+.polaroid.p1 {
+  transform: translateX(-78px) translateY(8px) rotate(-9deg) scale(0.92);
+  z-index: 1;
+}
+
+.polaroid.p2 {
+  transform: translateX(0) translateY(-4px) rotate(1.5deg) scale(0.95);
+  z-index: 2;
+}
+
+.polaroid.p3 {
+  transform: translateX(78px) translateY(10px) rotate(8.5deg) scale(0.92);
+  z-index: 1;
+}
+
+/* Foto que está em destaque no momento */
+.polaroid.active {
+  transform: translateX(0) translateY(-6px) rotate(-1deg) scale(1.07) !important;
+  z-index: 5 !important;
+  box-shadow: 0 16px 34px rgba(34, 31, 28, 0.18);
+}
+
+.photo-tip {
+  font-size: 0.76rem;
+  color: var(--muted);
+  opacity: 0.8;
+  margin-top: -6px;
+}
 
 .question-section {
   width: 100%;
-  padding-top: 6px;
+  padding-top: 4px;
 }
 
 .question {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.55rem;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.25;
   color: var(--text);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .hint {
   min-height: 20px;
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   color: var(--muted);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .buttons-area {
@@ -130,7 +222,7 @@ body {
 .btn {
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 12px 28px;
+  padding: 12px 30px;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.98rem;
   font-weight: 500;
@@ -156,21 +248,63 @@ body {
 
 .btn-yes.fleeing {
   position: fixed;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
   transition: left 0.18s ease-out, top 0.18s ease-out;
 }
 
 .btn-no {
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.65);
   color: var(--muted);
 }
 
+/* Galeria final (após aceitar 5x) */
+.celebration-container {
+  padding-bottom: 28px;
+  gap: 22px;
+}
+
 .final-text {
-  font-size: 0.98rem;
+  font-size: 0.96rem;
   line-height: 1.5;
   color: var(--muted);
-  max-width: 300px;
+  max-width: 310px;
+  margin-top: 4px;
 }
+
+.scrapbook-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.polaroid-large {
+  position: relative;
+  background: var(--paper);
+  padding: 10px 10px 30px 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 28px rgba(34, 31, 28, 0.1);
+  width: 86%;
+  max-width: 280px;
+}
+
+.polaroid-large img {
+  width: 100%;
+  aspect-ratio: 4 / 4.3;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid-large figcaption {
+  font-size: 1.3rem;
+  margin-top: 10px;
+}
+
+.rot-left { transform: rotate(-2.5deg); }
+.rot-right { transform: rotate(2.2deg); }
+.rot-left-2 { transform: rotate(-1.5deg); }
 
 .sad-container {
   gap: 14px;
