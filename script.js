@@ -8,15 +8,18 @@ const glitterLayer = document.getElementById('glitter-layer');
 const polaroids = Array.from(document.querySelectorAll('#polaroid-stage .polaroid'));
 
 let yesTapCount = 0;
-const REQUIRED_TAPS = 5;
+const REQUIRED_TAPS = 8;
 let activePhotoIndex = 1;
 
 const messages = [
   '',
-  'Fugiu... tenta de novo 🦋 (1/5)',
-  'Quase lá 🐟 (2/5)',
-  'Mais um pouco 🐠 (3/5)',
-  'Última vez, prometo 🦋 (4/5)'
+  'Fugiu... tenta de novo 🦋 (1/8)',
+  'Quase lá 🐟 (2/8)',
+  'Mais um pouco 🐠 (3/8)',
+  'Continua tentando 🦋 (4/8)',
+  'Você quer mesmo hein 🐟 (5/8)',
+  'Tá quase conseguindo 🐠 (6/8)',
+  'Última vez, prometo 🦋 (7/8)'
 ];
 
 // Destaca uma das polaroids lado a lado
