@@ -4,8 +4,8 @@ const tapHint = document.getElementById('tap-hint');
 const mainCard = document.getElementById('main-card');
 const celebrationCard = document.getElementById('celebration-card');
 const floatingBg = document.getElementById('floating-bg');
-const polaroids = Array.from(document.querySelectorAll('.polaroid'));
-const polaroidStage = document.getElementById('polaroid-stage');
+const glitterLayer = document.getElementById('glitter-layer');
+const polaroids = Array.from(document.querySelectorAll('#polaroid-stage .polaroid'));
 
 let yesTapCount = 0;
 const REQUIRED_TAPS = 5;
@@ -19,8 +19,8 @@ const messages = [
   'Última vez, prometo 🦋 (4/5)'
 ];
 
-// Alterna qual Polaroid está na frente quando toca nas fotos ou quando aperta "Sim"
-function cyclePolaroid(nextIndex) {
+// Destaca uma das polaroids lado a lado
+function highlightPolaroid(nextIndex) {
   if (!polaroids.length) return;
   activePhotoIndex =
     typeof nextIndex === 'number'
@@ -32,16 +32,28 @@ function cyclePolaroid(nextIndex) {
   });
 }
 
-if (polaroidStage) {
-  polaroidStage.addEventListener('click', (e) => {
-    const clickedCard = e.target.closest('.polaroid');
-    if (clickedCard && !clickedCard.classList.contains('active')) {
-      cyclePolaroid(Number(clickedCard.dataset.index));
-    } else {
-      cyclePolaroid();
-    }
-  });
+polaroids.forEach((card, idx) => {
+  card.addEventListener('click', () => highlightPolaroid(idx));
+});
+
+// Cria pontos de glitter cintilantes espalhados pela tela
+function createGlitterSparkles() {
+  if (!glitterLayer) return;
+  const count = 34;
+  for (let i = 0; i < count; i++) {
+    const sparkle = document.createElement('span');
+    sparkle.className = 'sparkle';
+    sparkle.style.left = `${Math.random() * 98}%`;
+    sparkle.style.top = `${Math.random() * 98}%`;
+    const scale = 0.5 + Math.random() * 0.9;
+    sparkle.style.transform = `scale(${scale})`;
+    sparkle.style.animationDuration = `${1.6 + Math.random() * 2.4}s`;
+    sparkle.style.animationDelay = `${Math.random() * 2.5}s`;
+    glitterLayer.appendChild(sparkle);
+  }
 }
+
+createGlitterSparkles();
 
 function moveYesButtonRandomly() {
   if (btnYes.parentElement !== document.body) {
@@ -94,7 +106,7 @@ function handleYesTap(event) {
 
   if (yesTapCount < REQUIRED_TAPS) {
     tapHint.textContent = messages[yesTapCount] || '';
-    cyclePolaroid();
+    highlightPolaroid();
     moveYesButtonRandomly();
   } else {
     btnYes.remove();
@@ -137,7 +149,7 @@ spawnFloatingEmoji();
 setTimeout(spawnFloatingEmoji, 300);
 
 function burstButterfliesAndFish() {
-  for (let i = 0; i < 22; i++) {
-    setTimeout(spawnFloatingEmoji, i * 110);
+  for (let i = 0; i < 24; i++) {
+    setTimeout(spawnFloatingEmoji, i * 100);
   }
 }

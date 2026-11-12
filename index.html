@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Emojis de borboleta e peixe subindo ao fundo -->
+  <!-- Camada de glitter brilhando e borboletas/peixes subindo ao fundo -->
+  <div class="glitter-layer" id="glitter-layer" aria-hidden="true"></div>
   <div class="floating-bg" id="floating-bg" aria-hidden="true"></div>
 
   <main class="container" id="main-card">
@@ -19,17 +20,17 @@
       <h1 class="title">Feliz um mês de namoro</h1>
     </header>
 
-    <!-- Colagem interativa de Polaroids (toque para destacar/alternar) -->
-    <div class="polaroid-stage" id="polaroid-stage" title="Toque nas fotos para alternar">
+    <!-- 3 Polaroids lado a lado no celular -->
+    <div class="polaroid-row" id="polaroid-stage">
       <figure class="polaroid p1" data-index="0">
         <span class="tape"></span>
         <img src="foto1.jpg" alt="Nós dois no parque" />
         <figcaption>nós dois 🦋</figcaption>
       </figure>
-      <figure class="polaroid p2 active" data-index="1">
+      <figure class="polaroid p2" data-index="1">
         <span class="tape"></span>
         <img src="foto2.jpg" alt="Nós dois de pertinho" />
-        <figcaption>meu lugar favorito 🐟</figcaption>
+        <figcaption>meu lugar 🐟</figcaption>
       </figure>
       <figure class="polaroid p3" data-index="2">
         <span class="tape"></span>
@@ -37,7 +38,6 @@
         <figcaption>cada momento 🐠</figcaption>
       </figure>
     </div>
-    <span class="photo-tip">toque nas fotos para ver de perto</span>
 
     <div class="question-section">
       <p class="question">Quer passar o resto dos seus dias comigo?</p>
@@ -54,29 +54,29 @@
   <section class="container celebration-container hidden" id="celebration-card">
     <header class="header">
       <span class="small-date">1 mês de muitos 🦋 🐟 🐠</span>
-      <h1 class="title">Sabia que você ia dizer sim</h1>
+      <h1 class="title">nOhvis, sabia que ce ia aceitar</h1>
       <p class="final-text">
-        Mesmo tendo que caçar o botão 5 vezes pela tela. Feliz primeiro mês, meu amor.
+        Mesmo tendo que caçar o botão 5 vezes pela tela. Feliz primeiro mês, meu amor 🦋🐟
       </p>
     </header>
 
-    <div class="scrapbook-grid">
-      <figure class="polaroid-large rot-left">
+    <div class="polaroid-row celebration-row">
+      <figure class="polaroid p1">
         <span class="tape"></span>
         <img src="foto1.jpg" alt="Nós dois no parque" />
-        <figcaption>debruçados no nosso mundinho 🦋</figcaption>
+        <figcaption>nosso mundinho 🦋</figcaption>
       </figure>
 
-      <figure class="polaroid-large rot-right">
+      <figure class="polaroid p2">
         <span class="tape"></span>
         <img src="foto2.jpg" alt="Nós dois de pertinho" />
-        <figcaption>meu sorriso mais fácil é com você 🐟</figcaption>
+        <figcaption>meu sorriso 🐟</figcaption>
       </figure>
 
-      <figure class="polaroid-large rot-left-2">
+      <figure class="polaroid p3">
         <span class="tape"></span>
         <img src="foto3.jpg" alt="Nós dois à noite" />
-        <figcaption>a borboleta e o peixinho 🦋🐟</figcaption>
+        <figcaption>borboleta & peixe 🐠</figcaption>
       </figure>
     </div>
   </section>

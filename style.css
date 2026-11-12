@@ -6,12 +6,15 @@
 }
 
 :root {
-  --bg: #f6f2ea;
-  --paper: #fffdf9;
-  --text: #221f1c;
-  --muted: #6e665e;
-  --border: #e3dcd1;
-  --tape: rgba(235, 224, 204, 0.72);
+  --bg-top: #fdf2f6;
+  --bg-mid: #f9dfe9;
+  --bg-bottom: #f3cddc;
+  --paper: #fffbfd;
+  --text: #3b1d2a;
+  --muted: #7d5264;
+  --border: #edd2de;
+  --accent: #a63a64;
+  --tape: rgba(255, 225, 238, 0.78);
 }
 
 body {
@@ -19,16 +22,73 @@ body {
   width: 100%;
   overflow-x: hidden;
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--bg);
-  background-image: radial-gradient(#ded6c8 0.65px, transparent 0.65px);
-  background-size: 18px 18px;
+  background: radial-gradient(circle at 50% 15%, var(--bg-top) 0%, var(--bg-mid) 52%, var(--bg-bottom) 100%);
   color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 18px;
+  padding: 20px 12px;
   position: relative;
   user-select: none;
+}
+
+/* Camada de glitter / brilhos cintilantes */
+.glitter-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(255, 192, 218, 0.85) 1.2px, transparent 2px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.75) 0.8px, transparent 1.5px);
+  background-size: 70px 70px, 95px 95px, 50px 50px;
+  background-position: 0 0, 30px 40px, 15px 25px;
+}
+
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow:
+    0 0 6px 2px rgba(255, 255, 255, 0.95),
+    0 0 12px 4px rgba(255, 145, 190, 0.7);
+  animation: twinkle ease-in-out infinite;
+}
+
+.sparkle::before,
+.sparkle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+}
+
+.sparkle::before {
+  width: 14px;
+  height: 1.6px;
+}
+
+.sparkle::after {
+  width: 1.6px;
+  height: 14px;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.4) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(45deg);
+  }
 }
 
 /* Borboletas e peixinhos subindo ao fundo */
@@ -46,7 +106,6 @@ body {
   font-size: 1.35rem;
   opacity: 0;
   animation: riseUp linear forwards;
-  filter: saturate(0.95);
 }
 
 @keyframes riseUp {
@@ -55,13 +114,13 @@ body {
     opacity: 0;
   }
   15% {
-    opacity: 0.55;
+    opacity: 0.65;
   }
   50% {
     transform: translateY(-55dvh) translateX(14px) rotate(8deg);
   }
   85% {
-    opacity: 0.55;
+    opacity: 0.65;
   }
   100% {
     transform: translateY(-112dvh) translateX(-10px) rotate(-6deg);
@@ -73,12 +132,12 @@ body {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 400px;
+  max-width: 430px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 }
 
 .hidden {
@@ -93,101 +152,97 @@ body {
 }
 
 .small-date {
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   color: var(--muted);
   letter-spacing: 0.05em;
+  font-weight: 500;
 }
 
 .title {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 2.15rem;
+  font-size: 2.2rem;
   font-weight: 600;
   line-height: 1.12;
   color: var(--text);
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.7);
 }
 
-/* Palco de Polaroids interativas na tela inicial */
-.polaroid-stage {
-  position: relative;
+/* 3 Polaroids lado a lado na tela do celular */
+.polaroid-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
   width: 100%;
-  height: 235px;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 6px;
-  cursor: pointer;
+  margin: 6px 0;
 }
 
 .polaroid {
-  position: absolute;
+  position: relative;
   background: var(--paper);
-  padding: 7px 7px 26px 7px;
+  padding: 5px 5px 16px 5px;
   border: 1px solid var(--border);
-  box-shadow: 0 10px 24px rgba(34, 31, 28, 0.1);
-  width: 148px;
-  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.38s ease,
-              z-index 0s;
+  border-radius: 3px;
+  box-shadow:
+    0 8px 20px rgba(122, 46, 77, 0.14),
+    0 0 12px rgba(255, 255, 255, 0.6);
+  width: 100%;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .polaroid img {
   width: 100%;
-  height: 162px;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   display: block;
+  border-radius: 2px;
 }
 
-.polaroid figcaption,
-.polaroid-large figcaption {
+.polaroid figcaption {
   font-family: 'Caveat', cursive;
-  font-size: 1.12rem;
-  color: #3a342e;
+  font-size: 0.98rem;
+  color: var(--text);
   margin-top: 6px;
   line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Fita adesiva (washi tape) no topo da polaroid */
+/* Fita adesiva delicada no topo de cada polaroid */
 .tape {
   position: absolute;
-  top: -9px;
+  top: -7px;
   left: 50%;
   transform: translateX(-50%) rotate(-2deg);
-  width: 54px;
-  height: 17px;
+  width: 38px;
+  height: 13px;
   background: var(--tape);
-  border-left: 1px dashed rgba(180, 165, 140, 0.45);
-  border-right: 1px dashed rgba(180, 165, 140, 0.45);
+  border-left: 1px dashed rgba(200, 140, 165, 0.45);
+  border-right: 1px dashed rgba(200, 140, 165, 0.45);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-/* Posições em leque das 3 fotos */
+/* Leve inclinação natural mantendo uma ao lado da outra */
 .polaroid.p1 {
-  transform: translateX(-78px) translateY(8px) rotate(-9deg) scale(0.92);
-  z-index: 1;
+  transform: rotate(-2.5deg);
 }
 
 .polaroid.p2 {
-  transform: translateX(0) translateY(-4px) rotate(1.5deg) scale(0.95);
-  z-index: 2;
+  transform: translateY(-4px) rotate(1deg);
 }
 
 .polaroid.p3 {
-  transform: translateX(78px) translateY(10px) rotate(8.5deg) scale(0.92);
-  z-index: 1;
+  transform: rotate(2.5deg);
 }
 
-/* Foto que está em destaque no momento */
 .polaroid.active {
-  transform: translateX(0) translateY(-6px) rotate(-1deg) scale(1.07) !important;
-  z-index: 5 !important;
-  box-shadow: 0 16px 34px rgba(34, 31, 28, 0.18);
-}
-
-.photo-tip {
-  font-size: 0.76rem;
-  color: var(--muted);
-  opacity: 0.8;
-  margin-top: -6px;
+  transform: translateY(-7px) scale(1.06) rotate(0deg);
+  z-index: 4;
+  box-shadow:
+    0 12px 26px rgba(166, 58, 100, 0.24),
+    0 0 16px rgba(255, 255, 255, 0.9);
 }
 
 .question-section {
@@ -197,7 +252,7 @@ body {
 
 .question {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   font-weight: 600;
   line-height: 1.25;
   color: var(--text);
@@ -206,8 +261,9 @@ body {
 
 .hint {
   min-height: 20px;
-  font-size: 0.86rem;
-  color: var(--muted);
+  font-size: 0.88rem;
+  color: var(--accent);
+  font-weight: 500;
   margin-bottom: 14px;
 }
 
@@ -221,11 +277,11 @@ body {
 
 .btn {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 12px 30px;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.98rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   touch-action: manipulation;
   text-decoration: none;
@@ -240,71 +296,40 @@ body {
 }
 
 .btn-yes {
-  background-color: var(--text);
+  background: linear-gradient(135deg, #c84b7c 0%, #9e2d59 100%);
   color: #ffffff;
-  border-color: var(--text);
+  border-color: #9e2d59;
+  box-shadow:
+    0 6px 18px rgba(158, 45, 89, 0.3),
+    0 0 10px rgba(255, 255, 255, 0.5);
   z-index: 999;
 }
 
 .btn-yes.fleeing {
   position: fixed;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  box-shadow:
+    0 8px 24px rgba(158, 45, 89, 0.38),
+    0 0 14px rgba(255, 255, 255, 0.75);
   transition: left 0.18s ease-out, top 0.18s ease-out;
 }
 
 .btn-no {
-  background-color: rgba(255, 255, 255, 0.65);
+  background-color: rgba(255, 255, 255, 0.75);
   color: var(--muted);
 }
 
-/* Galeria final (após aceitar 5x) */
+/* Tela de comemoração */
 .celebration-container {
-  padding-bottom: 28px;
-  gap: 22px;
+  gap: 20px;
 }
 
 .final-text {
-  font-size: 0.96rem;
+  font-size: 0.98rem;
   line-height: 1.5;
   color: var(--muted);
-  max-width: 310px;
+  max-width: 320px;
   margin-top: 4px;
 }
-
-.scrapbook-grid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 26px;
-  width: 100%;
-  margin-top: 6px;
-}
-
-.polaroid-large {
-  position: relative;
-  background: var(--paper);
-  padding: 10px 10px 30px 10px;
-  border: 1px solid var(--border);
-  box-shadow: 0 12px 28px rgba(34, 31, 28, 0.1);
-  width: 86%;
-  max-width: 280px;
-}
-
-.polaroid-large img {
-  width: 100%;
-  aspect-ratio: 4 / 4.3;
-  object-fit: cover;
-  display: block;
-}
-
-.polaroid-large figcaption {
-  font-size: 1.3rem;
-  margin-top: 10px;
-}
-
-.rot-left { transform: rotate(-2.5deg); }
-.rot-right { transform: rotate(2.2deg); }
-.rot-left-2 { transform: rotate(-1.5deg); }
 
 .sad-container {
   gap: 14px;
