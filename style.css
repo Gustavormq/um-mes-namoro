@@ -1,0 +1,268 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --pink-light: #ffe5ec;
+  --pink-mid: #ffb3c6;
+  --pink-strong: #ff4d79;
+  --pink-dark: #c9184a;
+  --text-dark: #4a1525;
+  --white: #ffffff;
+}
+
+body {
+  min-height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Nunito', sans-serif;
+  background: radial-gradient(circle at top, #fff0f3 0%, #ffccd5 55%, #ffb3c6 100%);
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  user-select: none;
+}
+
+/* Fundo da página triste */
+body.sad-page {
+  background: radial-gradient(circle at top, #eef2f7 0%, #d8e1eb 60%, #b8c6d8 100%);
+  color: #2b3a4a;
+}
+
+/* Corações subindo no fundo */
+.hearts-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-heart {
+  position: absolute;
+  bottom: -40px;
+  font-size: 1.5rem;
+  opacity: 0.65;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.8) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-110dvh) scale(1.25) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+/* Card central */
+.card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  border-radius: 28px;
+  padding: 28px 22px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(201, 24, 74, 0.16);
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.badge {
+  display: inline-block;
+  background: var(--pink-light);
+  color: var(--pink-dark);
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+  letter-spacing: 0.3px;
+}
+
+.hero-emoji {
+  font-size: 3.2rem;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.pulse {
+  animation: heartBeat 1.2s infinite ease-in-out;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.title {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.95rem;
+  color: var(--pink-dark);
+  font-weight: 400;
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+
+.subtitle {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #6b2737;
+  margin-bottom: 20px;
+}
+
+.question-box {
+  background: #fff5f8;
+  border: 2px dashed var(--pink-mid);
+  border-radius: 20px;
+  padding: 18px 14px 22px;
+}
+
+.question {
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: var(--pink-dark);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.hint {
+  min-height: 22px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--pink-strong);
+  margin-bottom: 14px;
+  transition: opacity 0.2s ease;
+}
+
+.buttons-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 54px;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 13px 32px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  touch-action: manipulation;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, #ff4d79 0%, #c9184a 100%);
+  color: var(--white);
+  box-shadow: 0 8px 20px rgba(201, 24, 74, 0.35);
+  z-index: 999;
+}
+
+/* Quando o botão Sim começa a fugir pela tela */
+.btn-yes.fleeing {
+  position: fixed;
+  transition: left 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              top 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.15s ease;
+}
+
+.btn-no {
+  background: #f1e4e8;
+  color: #7a5c65;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.love-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--pink-light);
+  color: var(--pink-dark);
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.infinity {
+  font-size: 1.35rem;
+}
+
+/* Página do Não (carinha triste) */
+.sad-card {
+  box-shadow: 0 18px 40px rgba(43, 58, 74, 0.15);
+}
+
+.sad-face {
+  font-size: 4.5rem;
+  margin-bottom: 14px;
+  animation: sadShake 2.2s infinite ease-in-out;
+}
+
+@keyframes sadShake {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(4px) rotate(-4deg); }
+  75% { transform: translateY(4px) rotate(4deg); }
+}
+
+.sad-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #2b3a4a;
+  margin-bottom: 12px;
+}
+
+.sad-message {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: #4b5d70;
+  margin-bottom: 24px;
+}
+
+.btn-back {
+  background: linear-gradient(135deg, #ff4d79 0%, #c9184a 100%);
+  color: var(--white);
+  box-shadow: 0 8px 20px rgba(201, 24, 74, 0.3);
+  width: 100%;
+}

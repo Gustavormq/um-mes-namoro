@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Feliz 1 Mês de Namoro! ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Corações flutuantes de fundo -->
+  <div class="hearts-bg" id="hearts-bg" aria-hidden="true"></div>
+
+  <!-- Card Principal do Pedido -->
+  <main class="card" id="main-card">
+    <div class="badge">✨ 1 Mês de Nós Dois ✨</div>
+    <div class="hero-emoji" aria-hidden="true">💑💖</div>
+    <h1 class="title">Feliz 1 Mês de Namoro!</h1>
+    <p class="subtitle">
+      Esse primeiro mês ao seu lado foi incrível, e eu tenho uma pergunta muito importante para te fazer...
+    </p>
+
+    <div class="question-box">
+      <h2 class="question">Quer passar o resto dos seus dias comigo?</h2>
+      <p class="hint" id="tap-hint"></p>
+
+      <div class="buttons-area" id="buttons-area">
+        <button type="button" class="btn btn-yes" id="btn-yes">Sim</button>
+        <button type="button" class="btn btn-no" id="btn-no">Não</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Card de Comemoração (aparece após apertar "Sim" 5 vezes) -->
+  <section class="card celebration-card hidden" id="celebration-card">
+    <div class="badge">🎉 Oficialmente Para Sempre! 🎉</div>
+    <div class="hero-emoji pulse" aria-hidden="true">🥰💍❤️</div>
+    <h1 class="title">Eu sabia que você diria SIM!</h1>
+    <p class="subtitle">
+      Você insistiu 5 vezes e provou que quer mesmo! 😂❤️<br /><br />
+      Obrigado por fazer esse primeiro mês ser tão especial. Que seja apenas o começo de uma vida inteira juntos. Eu te amo!
+    </p>
+    <div class="love-counter">
+      <span>1 Mês</span>
+      <span class="infinity">➔ ∞</span>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
